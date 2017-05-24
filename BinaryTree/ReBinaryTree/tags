@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BinaryTree	BinaryTree.h	/^    BinaryTree()$/;"	f	class:BinaryTree
+BinaryTree	BinaryTree.h	/^    BinaryTree(const BinaryTree<T>& t)  \/\/拷贝构造$/;"	f	class:BinaryTree
+BinaryTree	BinaryTree.h	/^    BinaryTree(const T* a, size_t size, const T& invalid)$/;"	f	class:BinaryTree
+BinaryTree	BinaryTree.h	/^class BinaryTree$/;"	c
+BinaryTreeNode	BinaryTree.h	/^    BinaryTreeNode(const T& x)$/;"	f	struct:BinaryTreeNode
+BinaryTreeNode	BinaryTree.h	/^struct BinaryTreeNode$/;"	s
+Depth	BinaryTree.h	/^    size_t Depth()$/;"	f	class:BinaryTree
+GetKLevelSize	BinaryTree.h	/^    size_t GetKLevelSize(size_t k)$/;"	f	class:BinaryTree
+InOrder	BinaryTree.h	/^    void InOrder()$/;"	f	class:BinaryTree
+LeafSize	BinaryTree.h	/^    size_t LeafSize()$/;"	f	class:BinaryTree
+Node	BinaryTree.h	/^    typedef BinaryTreeNode<T> Node;$/;"	t	class:BinaryTree
+PostOrder	BinaryTree.h	/^    void PostOrder()$/;"	f	class:BinaryTree
+PrevOrder	BinaryTree.h	/^    void PrevOrder()    \/\/前序遍历$/;"	f	class:BinaryTree
+Size	BinaryTree.h	/^    size_t Size()$/;"	f	class:BinaryTree
+_BINARYTREE_H	BinaryTree.h	10;"	d
+_CreateTree	BinaryTree.h	/^    Node* _CreateTree(T *a, size_t size, const T& invalid, size_t& index)$/;"	f	class:BinaryTree
+_Destory	BinaryTree.h	/^    void _Destory(Node* root)$/;"	f	class:BinaryTree
+_InOrder	BinaryTree.h	/^    void _InOrder(Node* root)$/;"	f	class:BinaryTree
+_LevelOrder	BinaryTree.h	/^    void _LevelOrder(Node* root)$/;"	f	class:BinaryTree
+_PostOrder	BinaryTree.h	/^    void _PostOrder(Node* root)$/;"	f	class:BinaryTree
+_PrevOrder	BinaryTree.h	/^    void _PrevOrder(Node* root)$/;"	f	class:BinaryTree
+_Size	BinaryTree.h	/^    void _Size(Node* root)$/;"	f	class:BinaryTree
+_data	BinaryTree.h	/^    T _data;$/;"	m	struct:BinaryTreeNode
+_left	BinaryTree.h	/^    BinaryTreeNode<T>* _left;$/;"	m	struct:BinaryTreeNode
+_right	BinaryTree.h	/^    BinaryTreeNode<T>* _right;$/;"	m	struct:BinaryTreeNode
+_root	BinaryTree.h	/^    Node* _root;$/;"	m	class:BinaryTree
+main	main.cpp	/^int main()$/;"	f
+operator =	BinaryTree.h	/^    BinaryTree<T> operator=(const BinaryTree<T> t)$/;"	f	class:BinaryTree
+test1	BinaryTree.h	/^void test1()$/;"	f
+~BinaryTree	BinaryTree.h	/^    ~BinaryTree()$/;"	f	class:BinaryTree
