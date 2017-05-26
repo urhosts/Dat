@@ -100,15 +100,18 @@ public:
     {
         return _LeafSize(_root);
     }
+
     size_t Depth()
     {
         return _Depth(_root);
     }
+
     size_t GetKLevelSize(size_t k)
     {
         assert(k > 0);
         return _GetKLevel(k, _root);
     }
+
 protected:
     Node* _CreateTree(T *a, size_t size, const T& invalid, size_t& index)
     {
@@ -208,15 +211,53 @@ protected:
         cout << endl;
     }
 
-    void _Size(Node* root)
+    size_t _Size(Node* root)
     {
         if(root == NULL)
         {
-            return;
+            return 0;
         }
         return _Size(root->_left) + _Size(root->_right) + 1;
     }
 
+    size_t _Depth(Node* root)
+    {
+        if(root == NULL)
+        {
+            return 0;
+        }
+        size_t leftDepth = _Depth(root->_left) + 1;
+        size_t rightDepth = _Depth(root->_right) + 1;
+        return leftDepth < rightDepth ? rightDepth : leftDepth;
+    }
+
+    size_t _LeafSize(Node* root)
+    {
+        if(root == NULL)
+        {
+            return 0;
+        }
+        if(root->_left == NULL && root->_right == NULL)
+        {
+            return 1;
+        }
+        return _LeafSize(root->_left) + _LeafSize(root->_right);
+    }
+
+    size_t _GetKLevel(int k, Node* root)
+    {
+        if(root == NULL)
+        {
+            return NULL;
+        }
+        if(k == 1)
+        {
+            return 1;
+        }
+        size_t leftSize = _GetKLevel(k - 1, root->_left);
+        size_t rightSize = _GetKLevel(k - 1, root->_right);
+        return leftSize + rightSize;
+    }
 
 private:
     Node* _root;
@@ -236,10 +277,10 @@ void test1()
     t1.PostOrder();
     //t1.PostOrder_NonR();
     t1.LevelOrder();
-    //cout << "Size: " << t1.Size() << endl;
-    //cout << "Depth: " << t1.Depth() << endl;
-    //cout << "LeafSize: " << t1.LeafSize() << endl;
-    //cout << "GetKLevel��" << t1.GetKLevel(3) << endl;
+    cout << "Size: " << t1.Size() << endl;
+    cout << "Depth: " << t1.Depth() << endl;
+    cout << "LeafSize: " << t1.LeafSize() << endl;
+    cout << "GetKLevel: " << t1.GetKLevelSize(3) << endl;
    
     t2.PrevOrder();
     //t2.PrevOrder_NonR();
@@ -248,10 +289,10 @@ void test1()
     t2.PostOrder();
     //t2.PostOrder_NonR();
     t2.LevelOrder();
-    //cout << "Size: " << t2.Size() << endl;
-    //cout << "Depth: " << t2.Depth() << endl;
-    //cout << "LeafSize: " << t2.LeafSize() << endl;
-    //cout << "GetKLevel" << t2.GetKLevel(4) << endl;
+    cout << "Size: " << t2.Size() << endl;
+    cout << "Depth: " << t2.Depth() << endl;
+    cout << "LeafSize: " << t2.LeafSize() << endl;
+    cout << "GetKLevel: " << t2.GetKLevelSize(4) << endl;
 }
  
 #endif
