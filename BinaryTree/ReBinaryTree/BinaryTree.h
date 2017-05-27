@@ -69,6 +69,13 @@ public:
         cout << endl;
     }
 
+    void PrevOrder_NonR()
+    {
+        cout << "PrevOrder_NonR:";
+        _PrevOrderNonR(_root);
+        cout << endl;
+    }
+
     void InOrder()
     {
         cout << "InOrder:";
@@ -76,10 +83,24 @@ public:
         cout << endl;
     }
 
+    void InOrder_NonR()
+    {
+        cout<<"InOrder_NonR:";
+        _InOrder_NonR(_root);
+        cout << endl;
+    }
+
     void PostOrder()
     {
         cout << "PostOrder:";
         _PostOrder(_root);
+        cout << endl;
+    }
+
+    void PostOrder_NonR()
+    {
+        cout<<"PostOrder_NonR:";
+        _PostOrderNonR(_root);
         cout << endl;
     }
 
@@ -100,16 +121,14 @@ public:
     {
         return _LeafSize(_root);
     }
-
     size_t Depth()
     {
         return _Depth(_root);
     }
-
     size_t GetKLevelSize(size_t k)
     {
         assert(k > 0);
-        return _GetKLevel(k, _root);
+        return _GetKLevel(_root, k);
     }
 
 protected:
@@ -163,6 +182,28 @@ protected:
         _PrevOrder(root->_left);
         _PrevOrder(root->_right);
     }
+    
+    void _PrevOrderNonR(Node* root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        stack<Node*> s;
+        Node* cur = root;
+        while(!s.empty() || cur)
+        {
+            while(cur)
+            {
+                cout<<cur->_data<<" ";
+                s.push(cur);
+                cur = cur->_left;
+            }
+            Node* top = s.top();
+            s.pop();
+            cur = top->_right;
+        }
+    }
 
     void _InOrder(Node* root)
     {
@@ -174,7 +215,28 @@ protected:
         cout << root ->_data << " ";
         _InOrder(root->_right);
     }
-
+    
+    void _InOrder_NonR(Node* root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        stack<Node*> s;
+        Node* cur = root;
+        while(!s.empty() || cur)
+        {
+            while(cur)
+            {
+                s.push(cur);
+                cur = cur->_left;
+            }
+            Node* top = s.top();
+            cout<<top->_data<<" ";
+            s.pop();
+            cur = top->_right;
+        }
+    }
     void _PostOrder(Node* root)
     {
         if(root == NULL)
@@ -186,6 +248,35 @@ protected:
         cout << root->_data << " ";
     }
 
+    void _PostOrderNonR(Node* root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        stack<Node*> s;
+        Node* cur = root;
+        Node* prev = NULL;
+        while(!s.empty() || cur)
+        {
+            while(cur)
+            {
+                s.push(cur);
+                cur = cur->_left;
+            }
+            Node* top = s.top();
+            if(top->_right == NULL || top->_right == prev)
+            {
+                cout<<top->_data<<" ";
+                prev = top;
+                s.pop();
+            }
+            else
+            {
+                cur = top->_right;
+            }
+        }
+    }
     void _LevelOrder(Node* root)
     {
         if(root == NULL)
@@ -226,9 +317,9 @@ protected:
         {
             return 0;
         }
-        size_t leftDepth = _Depth(root->_left) + 1;
-        size_t rightDepth = _Depth(root->_right) + 1;
-        return leftDepth < rightDepth ? rightDepth : leftDepth;
+        size_t LeftDepth = _Depth(root->_left) + 1;
+        size_t RightDepth = _Depth(root->_right) + 1;
+        return LeftDepth < RightDepth ? RightDepth : LeftDepth;
     }
 
     size_t _LeafSize(Node* root)
@@ -244,21 +335,38 @@ protected:
         return _LeafSize(root->_left) + _LeafSize(root->_right);
     }
 
-    size_t _GetKLevel(int k, Node* root)
+    void _LeafSize(Node* root, size_t& size)
     {
         if(root == NULL)
         {
-            return NULL;
+            return 0;
         }
-        if(k == 1)
+        if(root->_left == NULL && root->_right == NULL)
+        {
+            ++size;
+        }
+        _LeafSize(root->_left, size);
+        _LeafSize(root->_right, size);
+    }
+
+    size_t _GetKLevel(Node* root, int k)
+    {
+        if(root == NULL)
+        {
+            return 0;
+        }
+        if( k == 1 )
         {
             return 1;
         }
-        size_t leftSize = _GetKLevel(k - 1, root->_left);
-        size_t rightSize = _GetKLevel(k - 1, root->_right);
-        return leftSize + rightSize;
+        size_t leftLevel = _GetKLevel(root->_left, k - 1);
+        size_t rightLevel = _GetKLevel(root->_right, k - 1);
+        return leftLevel + rightLevel;
     }
 
+    size_t _GetKLevel(Node* root, int k, size_t& size, int value)
+    {
+    }
 private:
     Node* _root;
 };
@@ -271,23 +379,24 @@ void test1()
     BinaryTree<int> t2(a2, 15, '#');
    
     t1.PrevOrder();
-    //t1.PrevOrder_NonR();
+    t1.PrevOrder_NonR();
     t1.InOrder();
-    //t1.InOrder_NonR();
+    t1.InOrder_NonR();
     t1.PostOrder();
-    //t1.PostOrder_NonR();
+    t1.PostOrder_NonR();
     t1.LevelOrder();
     cout << "Size: " << t1.Size() << endl;
     cout << "Depth: " << t1.Depth() << endl;
     cout << "LeafSize: " << t1.LeafSize() << endl;
     cout << "GetKLevel: " << t1.GetKLevelSize(3) << endl;
-   
+    cout<<endl;
+    cout<<"#################################################"<<endl<<endl;
     t2.PrevOrder();
-    //t2.PrevOrder_NonR();
+    t2.PrevOrder_NonR();
     t2.InOrder();
-    //t2.InOrder_NonR();
+    t2.InOrder_NonR();
     t2.PostOrder();
-    //t2.PostOrder_NonR();
+    t2.PostOrder_NonR();
     t2.LevelOrder();
     cout << "Size: " << t2.Size() << endl;
     cout << "Depth: " << t2.Depth() << endl;
