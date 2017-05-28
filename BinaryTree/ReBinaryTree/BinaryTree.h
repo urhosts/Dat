@@ -112,6 +112,13 @@ public:
         cout << endl;
     }
 
+    void Find(const T& x)
+    {
+        cout<<"Find:"<<endl;
+        _Find(_root, x);
+        cout<<endl;
+    }
+
     size_t Size()
     {
         return _Size(_root);
@@ -121,10 +128,12 @@ public:
     {
         return _LeafSize(_root);
     }
+
     size_t Depth()
     {
         return _Depth(_root);
     }
+    
     size_t GetKLevelSize(size_t k)
     {
         assert(k > 0);
@@ -277,6 +286,7 @@ protected:
             }
         }
     }
+
     void _LevelOrder(Node* root)
     {
         if(root == NULL)
@@ -300,6 +310,27 @@ protected:
             }
         }
         cout << endl;
+    }
+
+    Node* _Find(Node* root, const T& x)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        if(root->_data == x)
+        {
+            return root;
+        }
+        Node* ret = _Find(root->_left, x);
+        if(ret)
+        {
+            return ret;
+        }
+        else
+        {
+            return _Find(root->_right, x);
+        }
     }
 
     size_t _Size(Node* root)
@@ -364,8 +395,19 @@ protected:
         return leftLevel + rightLevel;
     }
 
-    size_t _GetKLevel(Node* root, int k, size_t& size, int value)
+    size_t _GetKLevel(Node* root, int k, size_t& size, int level)
     {
+        if(root == NULL)
+        {
+            return 0;
+        }
+        if( level == k )
+        {
+            ++size;
+        }
+        _GetKLevel(k, root->_left, size, level + 1);
+        _GetKLevel(k, root->_right, size, level + 1);
+        return size;
     }
 private:
     Node* _root;
@@ -389,8 +431,10 @@ void test1()
     cout << "Depth: " << t1.Depth() << endl;
     cout << "LeafSize: " << t1.LeafSize() << endl;
     cout << "GetKLevel: " << t1.GetKLevelSize(3) << endl;
+
     cout<<endl;
     cout<<"#################################################"<<endl<<endl;
+    
     t2.PrevOrder();
     t2.PrevOrder_NonR();
     t2.InOrder();
